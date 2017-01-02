@@ -1,6 +1,6 @@
 import os
 from ConfigParser import SafeConfigParser
-from BingAds.BingAdsAccountInfo import *
+from bingadsservice.bing_ads_account_info import *
 
 current_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -25,7 +25,7 @@ class ConfigManager:
         self._bing_ads_account_info.refresh_token = config_parser.get('BingAds', 'refresh_token')
         self._bing_ads_account_info.developer_token = config_parser.get('BingAds', 'developer_token')
 
-        # TODO parse AdWords
+        # TODO parse adwordsservice
 
     @property
     def bingads_account_info(self):

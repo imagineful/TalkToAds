@@ -1,4 +1,4 @@
-from Common.Context import Context
+from common.Context import Context
 
 
 class BingAdsContext(Context):

@@ -58,5 +58,23 @@ class BingAdsAPIOperator:
 class BingAdsMatch:
     Prefix = ['i want to', 'please', "i'd like to", 'i would like to']
     Get = ['get', 'fetch', 'how many']
-    Entity = ['campaign', 'ad group', 'adgroup', 'ad', 'keyword',]
+    Entity = ['campaign', 'ad group', 'adgroup', 'ad', 'keyword']
     ByWhat = ['in id', 'in campaign', 'in ad group', 'in adgroup']
+
+    PrefixRegexMapping = {
+        'version1': ['(how many|get|fetch|count|check|add|create|update|change|delete|remove).*',  '(campaigns*|ad *groups*).*', '.*in.*(account|campaign|ad *group).*', ' *([\d\w ]*)'],
+        #'how many' : 'how many (campaigns*|ad *groups*) .*in.*(account|campaign|ad *group) *(.*)'
+    }
+
+BingAdsAPIMapping = {
+    # TODO change value to a list e.g. ['API', GetCampaignsByAccountId], ['Error', 'you must specify your campaign id']
+    ('get', 'campaign', 'account') :    'GetCampaignsByAccountId',
+    ('get', 'campaign', '') :           'GetCampaignsByAccountId',
+    ('get', 'campaign', 'id') :         'GetCampaignsByIds',
+    ('get', 'adgroup', 'campaign') :    'GetAdGroupByCampaignId',
+    ('get', 'adgroup', 'id'):           'GetAdGroupByIds',
+    ('get', 'adgroup', ''):           'TODO support multi api calls',
+    ('get', 'adgroup', 'account'):    'TODO support multi api calls',
+    ('get', 'remarketinglist', ''):     'GetRemarketingList',
+    ('get', 'remarketinglist', 'account'): 'GetRemarketingList',
+}

@@ -24,6 +24,17 @@ class BingAdsService(object):
         self.bulk_service = ServiceClient('Bulk', auth, environment='production', version=10)
         self.bulk_service_manager = BulkServiceManager(auth, environment='production')
 
+    def call_service(self, api_name, parameter):
+        """
+        execute the api
+        :param api_name: the bing ads api name
+        :param parameter: parameter should be processed before called
+        :return:
+        """
+        response = getattr(self.campaign_service, api_name)(parameter)
+        return response
+
+
     @property
     def campaign_service(self):
         return self._campaign_service

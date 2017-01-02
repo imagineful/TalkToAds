@@ -1,5 +1,5 @@
 
-class Context:
+class Context(object):
     def __init__(self, account):
         self._account = account
         self._campaign = None
@@ -17,6 +17,11 @@ class Context:
 
     @property
     def account(self):
+        """
+        BingAdsAccountInfo object
+        AdWordsAccountInfo object
+        :return:
+        """
         return self._account
 
     @account.setter
