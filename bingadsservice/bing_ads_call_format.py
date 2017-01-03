@@ -63,7 +63,6 @@ class BingAdsMatch:
 
     PrefixRegexMapping = {
         'version1': ['(how many|get|fetch|count|check|add|create|update|change|delete|remove).*',  '(campaigns*|ad *groups*).*', '.*in.*(account|campaign|ad *group).*', ' *([\d\w ]*)'],
-        #'how many' : 'how many (campaigns*|ad *groups*) .*in.*(account|campaign|ad *group) *(.*)'
     }
 
 BingAdsAPIMapping = {

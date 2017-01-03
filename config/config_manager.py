@@ -4,6 +4,7 @@ from bingadsservice.bing_ads_account_info import *
 
 current_path = os.path.dirname(os.path.realpath(__file__))
 
+
 class ConfigManager:
     def __init__(self):
         self._bing_ads_account_info = BingAdsAccountInfo()

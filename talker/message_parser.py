@@ -1,6 +1,7 @@
 import re
 from bingadsservice.bing_ads_call_format import *
 
+
 class MessageParser:
     @staticmethod
     def parse_message(match_list, message):
@@ -49,6 +50,29 @@ class MessageParser:
 
         return [api_name, api_arg_list]
 
+    @staticmethod
+    def parse_common_message(message, context):
+        """
+        parse the greeting messages, set the information to context
+        :param message:
+        :param regex:
+        :param context:
+        :return:
+        """
+        regex = '(hi|hello).*(bing *ads|ad *words).*'
+        match = re.search(regex, message)
+        if match:
+            platform = match.group(2)
+            context.ads_platform = 'bingads' if platform[:4] == 'bing' else 'adwords'
+            return True, 'Welcome to use {} service.'.format(context.ads_platform)
+        regex = '(bye|goodbye|exit|quit|shut *down|end *service).*'
+        match = re.search(regex, message)
+        if match:
+            context.service_status = 'Completed'
+            return True, 'Thank you for using {0} service, goodbye.'.format(context.ads_platform)
+
+        return False, None
+
 
 class MessageProcessHelper:
     WordsMappings = {
@@ -69,12 +93,19 @@ class MessageProcessHelper:
     @staticmethod
     def process_arg_list(api_name, arg_list, context):
         ApiArgumentMapping = {
-            'GetCampaignsByAccountId': context.account.account_id
+            'GetCampaignsByAccountId': lambda a, c : MessageProcessHelper._fetch_GetCampaignsByAccountId_arguments(a, c)
         }
-        api_arg_list = []
-        if api_name in ApiArgumentMapping.keys():
-            api_arg_list.append(ApiArgumentMapping[api_name])
 
-        return api_arg_list
+        if api_name in ApiArgumentMapping.keys():
+            return ApiArgumentMapping[api_name](arg_list, context)
+
+        return None
+
+    @staticmethod
+    def _fetch_GetCampaignsByAccountId_arguments(arg_list, context):
+        res_arg_list = []
+        res_arg_list.append(context.account.account_id)
+        return res_arg_list
+
 
 

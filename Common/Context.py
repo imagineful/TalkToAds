@@ -1,4 +1,4 @@
-
+from bingadsservice.bing_ads_cache import BingAdsCache
 class Context(object):
     def __init__(self, account):
         self._account = account
@@ -6,6 +6,8 @@ class Context(object):
         self._ad_group = None
         self._current_entity = None
         self._ads_platform = None
+        self._cache = BingAdsCache()
+        self._service_status = 'Active'
 
     @property
     def ads_platform(self):
@@ -51,3 +53,25 @@ class Context(object):
     @current_entity.setter
     def current_entity(self, value):
         self._current_entity = value
+
+    @property
+    def cache(self):
+        return self._cache
+
+    @property
+    def service_status(self):
+        return self._service_status
+
+    @service_status.setter
+    def service_status(self, value):
+        self._service_status = value
+
+    def clear(self):
+        self._account = None
+        self._campaign = None
+        self._ad_group = None
+        self._current_entity = None
+        self._ads_platform = None
+
+    def clear_cache(self):
+        self._cache.clear()
