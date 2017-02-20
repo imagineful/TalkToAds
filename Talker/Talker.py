@@ -3,17 +3,6 @@ from config.config_manager import ConfigManager
 from bingadsservice.bing_ads_service_manager import BingAdsService
 from common.context import *
 
-# TODO: Handle greetings. e.g. Hello Bing Ads. then enter bing ads mode, hello adwords, then enter adwords mode
-# TODO: Handle goodbye message. Goodbye, End service, then exit the program
-# TODO: Add answer handler, to answer the questions, or to return the response in a good way
-# TODO: Add help support, e.g. help, then print the basic help information
-# TODO: Support batch support, e.g. remove all ads in ad group ABC
-# TODO: Format the unit test and functional test
-# TODO: Write an elegant readme file
-# TODO: Add safe logic, e.g. remove all campaigns, should be execute very cautiously.
-# TODO: Support Ad words
-# TODO: Support facebook ads
-
 
 class Talker(object):
     def __init__(self):
@@ -42,6 +31,7 @@ class Talker(object):
                     return
                 continue
             api_with_arguments = MessageHandler.handle_message(input, context)
+
             if api_with_arguments is not None:
                 #print api_with_arguments[0]
                 #print api_with_arguments[1]
@@ -49,7 +39,7 @@ class Talker(object):
                 response = MessageHandler.handle_response(api_response, context, api_with_arguments)
                 if response is not None:
                     print response[0]
-                    confirm_input = raw_input('')
+                    confirm_input = raw_input('>')
                     if confirm_input.lower() == 'yes':
                         response[1](api_response)
                 else:

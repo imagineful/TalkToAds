@@ -78,6 +78,7 @@ class MessageProcessHelper:
     WordsMappings = {
         'howmany' : 'get',
         'count'  : 'get',
+        'fetch' : 'get',
         'create' : 'add',
         'remove' : 'delete'
     }
@@ -92,6 +93,7 @@ class MessageProcessHelper:
 
     @staticmethod
     def process_arg_list(api_name, arg_list, context):
+        # TODO need handle context to get the real argument
         ApiArgumentMapping = {
             'GetCampaignsByAccountId': lambda a, c : MessageProcessHelper._fetch_GetCampaignsByAccountId_arguments(a, c)
         }
